@@ -35,30 +35,33 @@ while ($menu!="exit" and $status!="dead") {
 			if (count($players)<2) {
 				echo "please make at least 2 character\n";
 			} else {
-				echo "# =================================== #\n";
-				echo "# Welcome to The Battle Arena         #\n";
-				echo "# =================================== #\n";
-				echo "Battle Start: \n";
-				echo "who will attack : \n";
-				$p1 = readline();
-				while (!array_key_exists($p1, $players)) {
-					echo "player name doesn't exist, please insert again \n";
-					$p1=readline();
+				while ($status!="dead") {
+					echo "# =================================== #\n";
+					echo "# Welcome to The Battle Arena         #\n";
+					echo "# =================================== #\n";
+					echo "Battle Start: \n";
+					echo "who will attack : \n";
+					$p1 = readline();
+					while (!array_key_exists($p1, $players)) {
+						echo "player name doesn't exist, please insert again \n";
+						$p1=readline();
+					}
+					echo "who will be attacked : \n";
+					$p2 = readline();
+					while (!array_key_exists($p2, $players)) {
+						echo "player name doesn't exist, please insert again \n";
+						$p2=readline();
+					}
+					$attack = $players[$p1];
+					$temp = ($players[$p2]->get_blood())-20;
+					if ($temp<=1) {
+						$status="dead";
+					}
+					$players[$p2]->set_blood($temp);
+					$defend = $players[$p2];
+					echo $attack->get_name()." : blood = ".$attack->get_blood()." , manna = ".$attack->get_manna()."\n";
+					echo $defend->get_name()." : blood = ".$defend->get_blood()." , manna = ".$defend->get_manna()."\n";
 				}
-				echo "who will be attacked : \n";
-				$p2 = readline();
-				while (!array_key_exists($p2, $players)) {
-					echo "player name doesn't exist, please insert again \n";
-					$p2=readline();
-				}
-				$attack = $players[$p1];
-				$temp = ($players[$p2]->get_blood())-20;
-				
-				$players[$p2]->set_blood($temp);
-				$defend = $players[$p2];
-				echo $attack->get_name()." : blood = ".$attack->get_blood()." , manna = ".$attack->get_manna()."\n";
-				echo $defend->get_name()." : blood = ".$defend->get_blood()." , manna = ".$defend->get_manna()."\n";
-				
 			}
 			
 			break;
